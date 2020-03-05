@@ -59,12 +59,14 @@ spec:
                   release: {{ .Release.Name }}
       {{- end }}
       initContainers:
+        {{- include "gitlab.certificates.extraInitContainer" . | nindent 8 }}
         {{- include "gitlab.certificates.initContainer" . | nindent 8 }}
         - name: configure
           image: {{ include "gitlab.busybox.image" (dict "local" .Values.init "global" $.Values.global.busybox) | quote }}
           imagePullPolicy: {{ .Values.init.image.pullPolicy }}
           command: ["sh", "/config/configure"]
           volumeMounts:
+          {{- include "gitlab.extraVolumeMounts" . | indent 10 }}
             - name: registry-secrets
               mountPath: /config
             - name: registry-server-config
@@ -77,6 +79,7 @@ spec:
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ default "" .Values.image.pullPolicy | quote }}
           volumeMounts:
+          {{- include "gitlab.extraVolumeMounts" . | indent 10 }}
           - name: registry-server-config
             mountPath: /etc/docker/registry/
             readOnly: true
@@ -109,6 +112,7 @@ spec:
             {{- toYaml .Values.resources | nindent 12 }}
       terminationGracePeriodSeconds: {{ .Values.deployment.terminationGracePeriodSeconds }}
       volumes:
+      {{ include "gitlab.extraVolumes" . | indent 6 }}
       - name: registry-server-config
         emptyDir:
           medium: "Memory"

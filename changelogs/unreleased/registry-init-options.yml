@@ -1,0 +1,5 @@
+---
+title: Add extraInitContainers, extraContainers, extraVolumes and extraVolumeMounts to registry options
+merge_request: 
+author: Michael Lundquist
+type: other

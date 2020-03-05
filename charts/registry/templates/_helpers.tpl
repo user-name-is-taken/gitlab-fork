@@ -65,3 +65,23 @@ Returns the nginx ingress class
 {{- define "registry.ingressclass" -}}
 {{- pluck "class" .Values.global.ingress (dict "class" (printf "%s-nginx" .Release.Name)) | first -}}
 {{- end -}}
+
+
+{{/*
+Allows the user to customize the registry.
+*/}}
+{{- define "gitlab.extraContainers" -}}
+{{ tpl (default "" .Values.extraContainers) . }}
+{{- end -}}
+
+{{- define "gitlab.extraInitContainers" -}}
+{{ tpl (default "" .Values.extraInitContainers) . }}
+{{- end -}}
+
+{{- define "gitlab.extraVolumes" -}}
+{{ tpl (default "" .Values.extraVolumes) . }}
+{{- end -}}
+
+{{- define "gitlab.extraVolumeMounts" -}}
+{{ tpl (default "" .Values.extraVolumeMounts) . }}
+{{- end -}}

@@ -128,6 +128,10 @@ If you chose to deploy this chart as a standalone, remove the `registry` at the 
 | `tokenService`                             | `container_registry`                         | JWT token service                                                                                    |
 | `tokenIssuer`                              | `gitlab-issuer`                              | JWT token issuer                                                                                     |
 | `tolerations`                              | `[]`                                         | Toleration labels for pod assignment                                                                 |
+| `extraInitContainers`                      | List of extra init containers to include |                                          |
+| `extraContainers`                          | List of extra containers to include      |                                          |
+| `extraVolumes`                             | List of extra volumes to create          |                                          |
+| `extraVolumeMounts`                        | List of extra volumes mountes to do      |                                          |
 
 ## Chart configuration examples
 
