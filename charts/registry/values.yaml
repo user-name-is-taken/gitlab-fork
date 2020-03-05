@@ -139,6 +139,12 @@ init:
     # Set to known path, to used ConfigMap
     cat /config/certificate.crt > /registry/certificate.crt
 
+# You can add init containers like this
+extraInitContainers: |
+  - name: secret-parser
+    image: busybox:1.28
+    command: ['echo', 'hello world']
+
 # define some sane resource requests and limitations
 resources:
   # limits:

@@ -59,7 +59,7 @@ spec:
                   release: {{ .Release.Name }}
       {{- end }}
       initContainers:
-        {{- include "gitlab.certificates.extraInitContainer" . | nindent 8 }}
+        {{- include "gitlab.extraInitContainers" . | nindent 8 }}
         {{- include "gitlab.certificates.initContainer" . | nindent 8 }}
         - name: configure
           image: {{ include "gitlab.busybox.image" (dict "local" .Values.init "global" $.Values.global.busybox) | quote }}
@@ -75,6 +75,7 @@ spec:
             {{- toYaml .Values.init.resources | nindent 12 }}
       {{- include "pullsecrets" .Values.image | indent 6 }}
       containers:
+      	{{- include "gitlab.extraContainers" . | indent 8 }}
         - name: registry
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ default "" .Values.image.pullPolicy | quote }}
